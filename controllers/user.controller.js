@@ -49,7 +49,7 @@ module.exports = {
     } catch (error) {
       return res
         .status(500)
-        .json({ status: "error", message: "Internal Server Error :", error });
+        .json({ status: "error", message: error.message });
     }
   },
 
@@ -100,7 +100,7 @@ module.exports = {
     } catch (error) {
       return res
         .status(500)
-        .json({ status: "error", message: "Internal Server Error :", error });
+        .json({ status: "error", message: error.message });
     }
   },
 
@@ -120,7 +120,7 @@ module.exports = {
     } catch (error) {
       return res
         .status(500)
-        .json({ status: "error", message: "Internal Server Error :", error });
+        .json({ status: "error", message: error.message });
     }
   },
 
@@ -142,7 +142,7 @@ module.exports = {
     } catch (error) {
       return res
         .status(500)
-        .json({ status: "error", message: "Internal Server Error :", error });
+        .json({ status: "error", message: error.message });
     }
   },
 };
