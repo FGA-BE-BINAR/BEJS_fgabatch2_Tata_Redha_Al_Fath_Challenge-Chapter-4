@@ -33,10 +33,12 @@ module.exports = {
       }
 
       let payload = {
-        name: source.name,
-        phone: source.phone,
-        address: source.address,
-        dob: source.dob,
+        data: {
+          name: source.name,
+          phone: source.phone,
+          address: source.address,
+          dob: new Date(source.dob),
+        },
       };
 
       await prisma.user.create(payload);
@@ -54,7 +56,7 @@ module.exports = {
   update: async (req, res, next) => {
     try {
       const source = req.body;
-      const id = req.params.id;
+      const id = parseInt(req.params.id);
 
       const schema = {
         name: { type: "string", empty: false },
@@ -72,20 +74,25 @@ module.exports = {
       }
 
       const existingUser = await prisma.user.findUnique({ where: { id: id } });
-      if (!user)
+      if (!existingUser) {
         return res.status(404).json({
           status: "error",
           message: "User data not found",
         });
+      }
 
-      let payload = {
+      const payload = {
         name: source.name,
         phone: source.phone,
         address: source.address,
-        dob: source.dob,
+        dob: new Date(source.dob),
       };
 
-      await existingUser.update(payload);
+      await prisma.user.update({
+        where: { id: id },
+        data: payload,
+      });
+
       return res.status(200).json({
         status: "succes",
         message: "Success Update User",
@@ -119,9 +126,9 @@ module.exports = {
 
   delete: async (req, res, next) => {
     try {
-      const id = req.params.id;
+      const id = parseInt(req.params.id);
       const user = await prisma.user.findUnique({
-        where: { id: parseInt(id) },
+        where: { id: id },
       });
       if (!user)
         return res.status(404).json({
@@ -129,7 +136,7 @@ module.exports = {
           message: "User data not found",
         });
 
-      await user.delete();
+      await prisma.user.delete({ where: { id: id } });
 
       return res.json({ status: "success", message: "Success delete user" });
     } catch (error) {
