@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const prisma = require("../config/prisma");
 const Validator = require("fastest-validator");
-const generateRandomAccountNumber = require("../utils/random");
+const generaetRandom = require("../utils/random");
 const v = new Validator();
 
 module.exports = {
@@ -56,7 +56,7 @@ module.exports = {
 
       // check account number exist
       while (accountChecker) {
-        accountNumber = generateRandomAccountNumber();
+        accountNumber = generaetRandom();
         const existingAccountNumber = await prisma.account.findUnique({
           where: { accountNumber },
         });

@@ -51,6 +51,7 @@ enum TransactionType {
 
 model Transaction {
   id          Int             @id @default(autoincrement())
+  trxCode     String          @unique
   type        TransactionType
   amount      Decimal
   date        DateTime

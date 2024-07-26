@@ -1,4 +1,4 @@
-function generateRandomAccountNumber() {
+function generateRandom() {
   const length = 15;
   const min = Math.pow(10, length - 1);
   const max = Math.pow(10, length) - 1;
@@ -7,4 +7,4 @@ function generateRandomAccountNumber() {
   return randomNumber.toString().padStart(length, "0");
 }
 
-module.exports = generateRandomAccountNumber;
+module.exports = generateRandom;
